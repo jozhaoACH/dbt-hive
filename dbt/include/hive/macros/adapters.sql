@@ -131,7 +131,6 @@
     {% else %}
       create {% if is_external == true -%}external{%- endif %} table {{ relation }}
     {% endif %}
-    {{ options_clause() }}
     {% if table_type == 'iceberg' -%}
       {{ partition_cols(label="partitioned by spec") }}
     {% else %}
@@ -141,6 +140,7 @@
     {{ stored_by_clause(table_type) }}
     {{ file_format_clause() }}
     {{ location_clause() }}
+	{{ options_clause() }}
     {{ comment_clause() }}
     {{ properties_clause(_properties) }}
     as
