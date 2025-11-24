@@ -166,7 +166,7 @@ class HiveAdapter(SQLAdapter):
         for row in result_tables:
             # check if this table is view
             is_view = (
-                len(list(filter(lambda x: x["tab_name"] == row["tab_name"], result_views))) == 1
+                len(list(filter(lambda x: x["viewName"] == row["tableName"], result_views))) == 1
             )
             if not is_view:
                 result_tables_without_view.append(row)
@@ -176,7 +176,7 @@ class HiveAdapter(SQLAdapter):
             relations.append(
                 self.Relation.create(
                     schema=schema_relation.schema,
-                    identifier=row["tab_name"],
+                    identifier=row["tableName"],
                     type="table",
                 )
             )
@@ -184,7 +184,7 @@ class HiveAdapter(SQLAdapter):
             relations.append(
                 self.Relation.create(
                     schema=schema_relation.schema,
-                    identifier=row["tab_name"],
+                    identifier=row["viewName"],
                     type="view",
                 )
             )
